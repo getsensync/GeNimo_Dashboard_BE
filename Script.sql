@@ -1,0 +1,245 @@
+-- CREATE CUSTOMERS TABLE
+
+--create table Customers (
+--	CustomerId SERIAL primary key,
+--	CustomerName VARCHAR(256) not null,
+--	CustomerUuid VARCHAR(8) not null,
+--	DateOfBirth Date,
+--	Balance integer not null default 0 check (Balance >= 0),
+--	EncryptionType Varchar(10) not null,
+--	CreatedAt Timestamp not null DEFAULT CURRENT_TIMESTAMP,
+--	LastModified Timestamp not null DEFAULT CURRENT_TIMESTAMP,
+--	IsActive Boolean default false
+--);
+
+-- INSERT CUSTOMERS TABLE DATAS
+
+--INSERT INTO Customers (CustomerName, CustomerUuid, DateOfBirth, Balance, CreatedAt, LastModified, isActive, EncryptionType)
+--VALUES
+--    ('John Doe', '12345678', '1990-01-01', 100, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, TRUE, 'AES'),
+--    ('Jane Smith', '87654321', '1985-05-10', 250, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, TRUE, 'DES'),
+--    ('David Johnson', '98765432', '1992-07-15', 500, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE, 'Twofish'),
+--    ('Sarah Williams', '54321678', '1988-03-22', 150, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, TRUE, 'RSA'),
+--    ('Michael Brown', '87651234', '1995-11-30', 75, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, TRUE, 'AES'),
+--    ('Emily Davis', '65432187', '1993-09-05', 300, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, TRUE, 'DES'),
+--    ('Christopher Wilson', '34567891', '1991-04-18', 200, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE, 'Twofish'),
+--    ('Olivia Miller', '78912345', '1987-08-12', 450, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, TRUE, 'RSA'),
+--    ('Daniel Anderson', '23456789', '1994-06-25', 120, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, TRUE, 'AES'),
+--    ('Sophia Thompson', '56789123', '1989-02-08', 180, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE, 'DES');
+
+-- CREATE SPOTS TABLE
+
+--CREATE TABLE Spots (
+--    SpotId SERIAL PRIMARY KEY,
+--    SpotName VARCHAR(256) NOT NULL,
+--    SpotUuid VARCHAR(8) NOT NULL,
+--    Price INTEGER NOT NULL,
+--    IsActive BOOLEAN DEFAULT FALSE,
+--    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--    LastModified TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+--);
+
+-- INSERT SPOTS TABLE DATAS
+
+--INSERT INTO Spots (SpotName, SpotUuid, Price, IsActive, CreatedAt, LastModified)
+--VALUES
+--    ('Ferris Wheel', '12345678', 10, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--    ('Roller Coaster', '87654321', 20, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--    ('Water Slide', '98765432', 15, FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--    ('Carousel', '54321678', 8, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--    ('Haunted House', '87651234', 12, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--    ('Bumper Cars', '65432187', 10, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--    ('Merry-Go-Round', '34567891', 8, FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--    ('Giant Swing', '78912345', 15, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--    ('Teacups', '23456789', 6, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--    ('Carnival Games', '56789123', 5, FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- -- CREATE DEPOSITS TABLE & PAYMENTS TABLE
+
+--CREATE TABLE Deposits (
+--    DepositId SERIAL PRIMARY KEY,
+--    CustomerId INTEGER NOT NULL,
+--    Amount INTEGER NOT NULL,
+--    DepositTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--    FOREIGN KEY (CustomerId) REFERENCES Customers (CustomerId)
+--);
+
+--CREATE TABLE Payments (
+--    PaymentId SERIAL PRIMARY KEY,
+--    CustomerId INTEGER NOT NULL,
+--    SpotId INTEGER NOT NULL,
+--    PaymentTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--    FOREIGN KEY (CustomerId) REFERENCES Customers (CustomerId),
+--    FOREIGN KEY (SpotId) REFERENCES Spots (SpotId)
+--);
+
+-- INSERT DEPOSITS & PAYMENTS DATAS
+
+--INSERT INTO Deposits (CustomerId, Amount)
+--VALUES
+--    (1, 100),
+--    (2, 50),
+--    (3, 75),
+--    (4, 200),
+--    (5, 150),
+--    (6, 50),
+--    (7, 100),
+--    (8, 75),
+--    (9, 125),
+--    (10, 100),
+--    (1, 50),
+--    (2, 100),
+--    (3, 75),
+--    (4, 150),
+--    (5, 200),
+--    (6, 100),
+--    (7, 125),
+--    (8, 75),
+--    (9, 50),
+--    (10, 100),
+--    (1, 150),
+--    (2, 100),
+--    (3, 200),
+--    (4, 100),
+--    (5, 75),
+--    (6, 50),
+--    (7, 125),
+--    (8, 150),
+--    (9, 75),
+--    (10, 100);
+
+--INSERT INTO Payments (CustomerId, SpotId)
+--VALUES
+--    -- Customer 1
+--    (1, 1),
+--    (1, 2),
+--    (1, 3),
+--    (1, 4),
+--    (1, 5),
+--    -- Customer 2
+--    (2, 1),
+--    (2, 4),
+--    (2, 5),
+--    (2, 8),
+--    (2, 10),
+--    -- Customer 3
+--    (3, 2),
+--    (3, 3),
+--    (3, 4),
+--    (3, 7),
+--    (3, 8),
+--    -- Customer 4
+--    (4, 1),
+--    (4, 4),
+--    (4, 6),
+--    (4, 9),
+--    (4, 10),
+--    -- Customer 5
+--    (5, 2),
+--    (5, 3),
+--    (5, 4),
+--    (5, 7),
+--    (5, 10),
+--    -- Customer 6
+--    (6, 1),
+--    (6, 2),
+--    (6, 3),
+--    (6, 8),
+--    (6, 10),
+--    -- Customer 7
+--    (7, 4),
+--    (7, 5),
+--    (7, 6),
+--    (7, 7),
+--    (7, 9),
+--    -- Customer 8
+--    (8, 1),
+--    (8, 4),
+--    (8, 6),
+--    (8, 8),
+--    (8, 9),
+--    -- Customer 9
+--    (9, 1),
+--    (9, 4),
+--    (9, 5),
+--    (9, 6),
+--    (9, 9),
+--    -- Customer 10
+--    (10, 1),
+--    (10, 2),
+--    (10, 3),
+--    (10, 4),
+--    (10, 5),
+--    (10, 6),
+--    (10, 7),
+--    (10, 8),
+--    (10, 9),
+--    (10, 10);
+   
+-- Check balance result after deposit + pay
+
+--SELECT
+--    q1.CustomerId,
+--    q1.CustomerName,
+--    q1.TotalBalance as Deposits,
+--    q2.TotalCharge as Payments,
+--    q1.TotalBalance - q2.TotalCharge AS BalanceAfterCharge
+--FROM
+--    (
+--        SELECT
+--            c.CustomerId,
+--            c.CustomerName,
+--            COALESCE(SUM(d.Amount), 0) AS TotalBalance
+--        FROM
+--            Customers c
+--            LEFT JOIN Deposits d ON c.CustomerId = d.CustomerId
+--        GROUP BY
+--            c.CustomerId,
+--            c.CustomerName
+--    ) q1
+--    LEFT JOIN
+--    (
+--        SELECT
+--            c.CustomerId,
+--            c.CustomerName,
+--            COALESCE(SUM(s.Price), 0) AS TotalCharge
+--        FROM
+--            Customers c
+--            LEFT JOIN Payments p ON c.CustomerId = p.CustomerId
+--            LEFT JOIN Spots s ON p.SpotId = s.SpotId
+--        GROUP BY
+--            c.CustomerId,
+--            c.CustomerName
+--    ) q2 ON q1.CustomerId = q2.CustomerId
+--ORDER BY
+--    q1.CustomerId;
+
+-- TRIGGER THE LAST MODIFIED
+
+--CREATE OR REPLACE FUNCTION update_last_modified()
+--  RETURNS TRIGGER AS $$
+--  BEGIN
+--    NEW.LastModified = NOW();
+--    RETURN NEW;
+--  END;
+--$$ LANGUAGE plpgsql;
+
+--create or REPLACE TRIGGER customer_lastModified_update_trigger
+--  BEFORE UPDATE ON Customers
+--  FOR EACH ROW
+--  WHEN (NEW.CustomerName IS DISTINCT FROM OLD.CustomerName OR
+--        NEW.CustomerUuid IS DISTINCT FROM OLD.CustomerUuid OR
+--        NEW.DateOfBirth <> OLD.DateOfBirth OR
+--        NEW.Balance IS DISTINCT FROM OLD.Balance OR
+--        NEW.EncryptionType IS DISTINCT FROM OLD.EncryptionType OR
+--        NEW.IsActive IS DISTINCT FROM OLD.IsActive)
+--  EXECUTE FUNCTION update_last_modified();
+
+--CREATE or REPLACE TRIGGER spot_lastModified_update_trigger
+--  BEFORE UPDATE ON Spots
+--  FOR EACH ROW
+--  WHEN (NEW.SpotName IS DISTINCT FROM OLD.SpotName OR
+--        NEW.SpotUuid IS DISTINCT FROM OLD.SpotUuid OR
+--        NEW.Price IS DISTINCT FROM OLD.Price OR
+--        NEW.IsActive IS DISTINCT FROM OLD.IsActive)
+--  EXECUTE FUNCTION update_last_modified();

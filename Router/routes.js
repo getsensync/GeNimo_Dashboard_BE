@@ -293,6 +293,38 @@ router.post("/payments/add", (req, res) => {
   );
 });
 
+// ### READER ###
+// A reader is used to read the card of a customer
+// Check Customer Validation by return all the customer's information
+router.get("/reader/customers/validate/:id", (req, res) => {
+  const id = req.params.id;
+  db.query(
+    "SELECT * FROM customers WHERE CustomerId = $1",
+    [id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.status(200).send(result.rows);
+      }
+    }
+  );
+});
 
+// Check Customers Balance
+router.get("/reader/customers/balance/:id", (req, res) => {
+  const id = req.params.id;
+  db.query(
+    "SELECT Balance FROM customers WHERE CustomerId = $1",
+    [id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.status(200).send(result.rows);
+      }
+    }
+  );
+});
 
 module.exports = router;
