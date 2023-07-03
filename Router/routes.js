@@ -207,7 +207,23 @@ router.get("/deposits/all", (req, res) => {
   });
 });
 
-// A deposit is made by a customer
+// get certain deposit by CustomerId
+router.get("/deposits/certain/customers/:id", (req, res) => {
+  const id = req.params.id;
+  db.query(
+    "SELECT * FROM deposits WHERE CustomerId = $1 ORDER BY DepositId ASC",
+    [id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.status(200).send(result.rows);
+      }
+    }
+  );
+});
+
+// A deposit is made by a customer to database
 router.post("/deposits/add", (req, res) => {
   const { customer_id, amount } = req.body;
   console.log(customer_id, amount);
@@ -252,6 +268,7 @@ router.post("/deposits/add", (req, res) => {
 });
 
 // ### PAYMENTS ###
+
 // A payment is made by a customer in a spot
 router.post("/payments/add", (req, res) => {
   const { customer_id, spot_id } = req.body;
@@ -345,6 +362,22 @@ router.get("/reader/customers/validate/:id", (req, res) => {
   );
 });
 
+// check Customer Active Status
+router.get("/reader/customers/active/:id", (req, res) => {
+  const id = req.params.id;
+  db.query(
+    "SELECT IsActive FROM customers WHERE CustomerId = $1",
+    [id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.status(200).send(result.rows);
+      }
+    }
+  );
+});
+
 // Check Customers Balance
 router.get("/reader/customers/balance/:id", (req, res) => {
   const id = req.params.id;
@@ -360,5 +393,59 @@ router.get("/reader/customers/balance/:id", (req, res) => {
     }
   );
 });
+
+// Customer pay in a certain spot with flow : add new payment + get new_balance = customer's balance + update customer's balance
+router.post("/reader/payments/add", (req, res) => {
+  const { customer_id, spot_id } = req.body;
+  // Perform makePayment function then return new balance
+  db.query(
+    "INSERT INTO payments (CustomerId, SpotId) VALUES ($1, $2)",
+    [customer_id, spot_id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        // update balance in customers table
+        db.query(
+          "UPDATE customers SET Balance = Balance - (SELECT Price FROM spots WHERE SpotId = $1) WHERE CustomerId = $2",
+          [spot_id, customer_id],
+          (err, result) => {
+            if (err) {
+              console.log(err);
+              // if error occurs, delete the last payment was made
+              let lastPaymentDeleted = false;
+              do {
+                db.query(
+                  "DELETE FROM payments WHERE PaymentId = (SELECT MAX(PaymentId) FROM payments)",
+                  (err, result) => {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      lastPaymentDeleted = true;
+                    }
+                  }
+                );
+              } while (!lastPaymentDeleted);
+            } else {
+              // return new balance
+              db.query(
+                "SELECT Balance FROM customers WHERE CustomerId = $1",
+                [customer_id],
+                (err, result) => {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    res.status(200).send(result.rows);
+                  }
+                }
+              );
+            }
+          }
+        );
+      }
+    }
+  );
+});
+
 
 module.exports = router;
