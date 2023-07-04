@@ -3,7 +3,7 @@ const express = require("express");
 require("dotenv").config();
 
 // Connect to database
-const db = require("./database");
+const db = require("./utils/database");
 db.connect((err) => {
   if (err) {
     console.log(err);
@@ -18,8 +18,8 @@ app.use(cors());
 app.use(express.json());
 
 // Set up RESTful API endpoint routes
-const router = require("./Router/routes");
-app.use(process.env.API_URI_PATH, router);
+const router = require("./Router/router");
+router(app);
 
 // API server listening
 app.listen(process.env.API_PORT, () => {
