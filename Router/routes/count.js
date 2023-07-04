@@ -120,7 +120,7 @@ router.get("/count/payments/annual/:year", (req, res) => {
 // Count all deposits made and total amount
 router.get("/count/deposits/all", (req, res) => {
   db.query(
-    "SELECT CAST(COUNT(DepositId) AS INTEGER), CAST(SUM(Amount) AS INTEGER) FROM deposits",
+    "SELECT CAST(COUNT(DepositId) AS INTEGER), CAST(SUM(Amount) AS INTEGER) AS amount FROM deposits",
     (err, result) => {
       if (err) {
         console.log(err);
@@ -139,7 +139,7 @@ router.get("/count/deposits/today", (req, res) => {
   const monthQuery = "EXTRACT(MONTH FROM DepositTimestamp)";
   const yearQuery = "EXTRACT(YEAR FROM DepositTimestamp)";
   db.query(
-    `SELECT CAST(COUNT(DepositId) AS INTEGER), CAST(SUM(Amount) AS INTEGER) FROM deposits WHERE ${dayQuery} = $1 AND ${monthQuery} = $2 AND ${yearQuery} = $3`,
+    `SELECT CAST(COUNT(DepositId) AS INTEGER), CAST(SUM(Amount) AS INTEGER) AS amount FROM deposits WHERE ${dayQuery} = $1 AND ${monthQuery} = $2 AND ${yearQuery} = $3`,
     [today.getDate(), today.getMonth() + 1, today.getFullYear()],
     (err, result) => {
       if (err) {
@@ -158,7 +158,7 @@ router.get("/count/deposits/monthly/:month", (req, res) => {
   const monthQuery = "EXTRACT(MONTH FROM DepositTimestamp)";
   const dayQuery = "EXTRACT(DAY FROM DepositTimestamp)";
   db.query(
-    `SELECT ${dayQuery} AS day, CAST(COUNT(DepositId) AS INTEGER), CAST(SUM(Amount) AS INTEGER) FROM deposits WHERE ${monthQuery} = $1 GROUP BY ${dayQuery} ORDER BY ${dayQuery} ASC`,
+    `SELECT ${dayQuery} AS day, CAST(COUNT(DepositId) AS INTEGER), CAST(SUM(Amount) AS INTEGER) AS amount FROM deposits WHERE ${monthQuery} = $1 GROUP BY ${dayQuery} ORDER BY ${dayQuery} ASC`,
     [month],
     (err, result) => {
       if (err) {
@@ -177,7 +177,7 @@ router.get("/count/deposits/annual/:year", (req, res) => {
   const yearQuery = "EXTRACT(YEAR FROM DepositTimestamp)";
   const monthQuery = "EXTRACT(MONTH FROM DepositTimestamp)";
   db.query(
-    `SELECT ${monthQuery} AS month, CAST(COUNT(DepositId) AS INTEGER), CAST(SUM(Amount) AS INTEGER) FROM deposits WHERE ${yearQuery} = $1 GROUP BY ${monthQuery} ORDER BY ${monthQuery} ASC`,
+    `SELECT ${monthQuery} AS month, CAST(COUNT(DepositId) AS INTEGER), CAST(SUM(Amount) AS INTEGER) AS amount FROM deposits WHERE ${yearQuery} = $1 GROUP BY ${monthQuery} ORDER BY ${monthQuery} ASC`,
     [year],
     (err, result) => {
       if (err) {
