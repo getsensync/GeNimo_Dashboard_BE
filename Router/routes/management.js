@@ -11,6 +11,7 @@ router.get("/management/customers/all", (req, res) => {
     if (err) {
       console.log(err);
     } else {
+      console.log("[API] all customers data fetched successfully");
       res.status(200).send(result.rows);
     }
   });
@@ -26,6 +27,7 @@ router.get("/management/customers/certain/:id", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] a certain customer data fetched successfully");
         res.status(200).send(result.rows);
       }
     }
@@ -43,6 +45,7 @@ router.post("/management/customers/add", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] customer added successfully");
         res.status(200).send("customer added successfully");
       }
     }
@@ -60,6 +63,7 @@ router.patch("/management/customers/update/:id", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] customer updated successfully");
         res.status(200).send("customer updated successfully");
       }
     }
@@ -76,6 +80,7 @@ router.delete("/management/customers/delete/:id", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] customer deleted successfully");
         res.status(200).send("customer deleted successfully");
       }
     }
@@ -90,6 +95,7 @@ router.get("/management/spots/all", (req, res) => {
     if (err) {
       console.log(err);
     } else {
+      console.log("[API] spots data fetched successfully")
       res.status(200).send(result.rows);
     }
   });
@@ -102,6 +108,7 @@ router.get("/management/spots/certain/:id", (req, res) => {
     if (err) {
       console.log(err);
     } else {
+      console.log("[API] spot data fetched successfully")
       res.status(200).send(result.rows);
     }
   });
@@ -118,6 +125,7 @@ router.post("/management/spots/add", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] spot added successfully");
         res.status(200).send("spot added successfully");
       }
     }
@@ -135,6 +143,7 @@ router.patch("/management/spots/update/:id", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] spot updated successfully");
         res.status(200).send("spot updated successfully");
       }
     }
@@ -148,6 +157,7 @@ router.delete("/management/spots/delete/:id", (req, res) => {
     if (err) {
       console.log(err);
     } else {
+      console.log("[API] spot deleted successfully");
       res.status(200).send("spot deleted successfully");
     }
   });

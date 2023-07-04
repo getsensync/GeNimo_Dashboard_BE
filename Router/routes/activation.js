@@ -15,6 +15,7 @@ router.patch("/activation/customer/:id", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] customer activation updated successfully");
         res.status(200).send("customer activation updated successfully");
       }
     }
@@ -32,6 +33,7 @@ router.patch("/activation/spot/:id", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] spot activation updated successfully");
         res.status(200).send("spot activation updated successfully");
       }
     }
@@ -48,6 +50,7 @@ router.get("/activation/customer/:id", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] customer activation checked successfully");
         res.status(200).send(result.rows);
       }
     }

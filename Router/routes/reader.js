@@ -15,6 +15,7 @@ router.get("/reader/customers/validate/:id", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] customer validated successfully");
         res.status(200).send(result.rows);
       }
     }
@@ -31,6 +32,7 @@ router.get("/reader/customers/active/:id", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] customer active status checked successfully");
         res.status(200).send(result.rows);
       }
     }
@@ -47,6 +49,7 @@ router.get("/reader/customers/balance/:id", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] customer balance checked successfully");
         res.status(200).send(result.rows);
       }
     }
@@ -86,6 +89,7 @@ router.post("/reader/payments/add", (req, res) => {
                 );
               } while (!lastPaymentDeleted);
             } else {
+              console.log("[API] customer payment added successfully");
               // return new balance
               db.query(
                 "SELECT Balance FROM customers WHERE CustomerId = $1",
@@ -94,6 +98,7 @@ router.post("/reader/payments/add", (req, res) => {
                   if (err) {
                     console.log(err);
                   } else {
+                    console.log("     and writing new balance to the card");
                     res.status(200).send(result.rows);
                   }
                 }

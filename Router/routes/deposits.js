@@ -10,6 +10,7 @@ router.get("/deposits/all", (req, res) => {
     if (err) {
       console.log(err);
     } else {
+      console.log("[API] all deposits data fetched successfully");
       res.status(200).send(result.rows);
     }
   });
@@ -25,6 +26,7 @@ router.get("/deposits/certain/customers/:id", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] deposit data of a certain customer fetched successfully");
         res.status(200).send(result.rows);
       }
     }
@@ -66,6 +68,7 @@ router.post("/deposits/add", (req, res) => {
                 );
               } while (!lastDepositDeleted);
             } else {
+              console.log("[API] deposit added successfully");
               res.status(200).send("deposit added successfully");
             }
           }

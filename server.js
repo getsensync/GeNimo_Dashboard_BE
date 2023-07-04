@@ -8,7 +8,7 @@ db.connect((err) => {
   if (err) {
     console.log(err);
   } else {
-    console.log("connected to database");
+    console.log("[Info] Connected to database");
   }
 });
 
@@ -23,5 +23,5 @@ router(app);
 
 // API server listening
 app.listen(process.env.API_PORT, () => {
-  console.log(`Server is running on port ${process.env.API_PORT}`);
+  console.log(`[Info] Server is running on port ${process.env.API_PORT}`);
 });

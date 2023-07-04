@@ -10,6 +10,7 @@ router.get("/payments/all", (req, res) => {
     if (err) {
       console.log(err);
     } else {
+      console.log("[API] all payments data fetched successfully");
       res.status(200).send(result.rows);
     }
   });
@@ -25,6 +26,7 @@ router.get("/payments/certain/customers/:id", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] certain customer payments data fetched successfully");
         res.status(200).send(result.rows);
       }
     }
@@ -41,6 +43,7 @@ router.get("/payments/certain/spots/:id", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] certain spot payments data fetched successfully");
         res.status(200).send(result.rows);
       }
     }
@@ -81,6 +84,7 @@ router.post("/payments/add", (req, res) => {
                 );
               } while (!lastPaymentDeleted);
             } else {
+              console.log("[API] payment added successfully");
               res.status(200).send("payment added successfully");
             }
           }

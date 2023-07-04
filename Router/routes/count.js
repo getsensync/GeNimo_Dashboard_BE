@@ -13,6 +13,7 @@ router.get("/count/payments/all", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] counted all payments successfully");
         res.status(200).send(result.rows);
       }
     }
@@ -32,6 +33,7 @@ router.get("/count/payments/today/spots", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] counted today payments successfully");
         res.status(200).send(result.rows);
       }
     }
@@ -50,6 +52,7 @@ router.get("/count/payments/monthly/:month/spots", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] counted monthly payments successfully");
         res.status(200).send(result.rows);
       }
     }
@@ -68,6 +71,7 @@ router.get("/count/payments/annual/:year/spots", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] counted annual payments successfully");
         res.status(200).send(result.rows);
       }
     }
@@ -86,6 +90,7 @@ router.get("/count/payments/monthly/:month", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] counted monthly payments successfully");
         res.status(200).send(result.rows);
       }
     }
@@ -104,6 +109,7 @@ router.get("/count/payments/annual/:year", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] counted annual payments successfully");
         res.status(200).send(result.rows);
       }
     }
@@ -119,6 +125,7 @@ router.get("/count/deposits/all", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] counted all deposits successfully");
         res.status(200).send(result.rows[0]);
       }
     }
@@ -138,6 +145,7 @@ router.get("/count/deposits/today", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] counted today deposits successfully");
         res.status(200).send(result.rows[0]);
       }
     }
@@ -156,6 +164,7 @@ router.get("/count/deposits/monthly/:month", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] counted monthly deposits successfully");
         res.status(200).send(result.rows[0]);
       }
     }
@@ -174,6 +183,7 @@ router.get("/count/deposits/annual/:year", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        console.log("[API] counted annual deposits successfully");
         res.status(200).send(result.rows[0]);
       }
     }
