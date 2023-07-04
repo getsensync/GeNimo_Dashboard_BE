@@ -32,7 +32,6 @@
 --CREATE TABLE Spots (
 --    SpotId SERIAL PRIMARY KEY,
 --    SpotName VARCHAR(256) NOT NULL,
---    SpotUuid VARCHAR(8) NOT NULL,
 --    Price INTEGER NOT NULL,
 --    IsActive BOOLEAN DEFAULT FALSE,
 --    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -41,18 +40,18 @@
 
 -- INSERT SPOTS TABLE DATAS
 
---INSERT INTO Spots (SpotName, SpotUuid, Price, IsActive, CreatedAt, LastModified)
+--INSERT INTO Spots (SpotName, Price, IsActive, CreatedAt, LastModified)
 --VALUES
---    ('Ferris Wheel', '12345678', 10, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
---    ('Roller Coaster', '87654321', 20, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
---    ('Water Slide', '98765432', 15, FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
---    ('Carousel', '54321678', 8, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
---    ('Haunted House', '87651234', 12, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
---    ('Bumper Cars', '65432187', 10, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
---    ('Merry-Go-Round', '34567891', 8, FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
---    ('Giant Swing', '78912345', 15, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
---    ('Teacups', '23456789', 6, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
---    ('Carnival Games', '56789123', 5, FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+--    ('Ferris Wheel', 10, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--    ('Roller Coaster', 20, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--    ('Water Slide', 15, FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--    ('Carousel', 8, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--    ('Haunted House', 12, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--    ('Bumper Cars', 10, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--    ('Merry-Go-Round', 8, FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--    ('Giant Swing', 15, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--    ('Teacups', 6, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--    ('Carnival Games', 5, FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- -- CREATE DEPOSITS TABLE & PAYMENTS TABLE
 
@@ -110,61 +109,51 @@
 
 --INSERT INTO Payments (CustomerId, SpotId)
 --VALUES
---    -- Customer 1
 --    (1, 1),
 --    (1, 2),
 --    (1, 3),
 --    (1, 4),
 --    (1, 5),
---    -- Customer 2
 --    (2, 1),
 --    (2, 4),
 --    (2, 5),
 --    (2, 8),
 --    (2, 10),
---    -- Customer 3
 --    (3, 2),
 --    (3, 3),
 --    (3, 4),
 --    (3, 7),
 --    (3, 8),
---    -- Customer 4
 --    (4, 1),
 --    (4, 4),
 --    (4, 6),
 --    (4, 9),
 --    (4, 10),
---    -- Customer 5
 --    (5, 2),
 --    (5, 3),
 --    (5, 4),
 --    (5, 7),
 --    (5, 10),
---    -- Customer 6
 --    (6, 1),
 --    (6, 2),
 --    (6, 3),
 --    (6, 8),
 --    (6, 10),
---    -- Customer 7
 --    (7, 4),
 --    (7, 5),
 --    (7, 6),
 --    (7, 7),
 --    (7, 9),
---    -- Customer 8
 --    (8, 1),
 --    (8, 4),
 --    (8, 6),
 --    (8, 8),
 --    (8, 9),
---    -- Customer 9
 --    (9, 1),
 --    (9, 4),
 --    (9, 5),
 --    (9, 6),
 --    (9, 9),
---    -- Customer 10
 --    (10, 1),
 --    (10, 2),
 --    (10, 3),
@@ -175,7 +164,7 @@
 --    (10, 8),
 --    (10, 9),
 --    (10, 10);
-   
+
 -- Check balance result after deposit + pay
 
 --SELECT
@@ -239,7 +228,6 @@
 --  BEFORE UPDATE ON Spots
 --  FOR EACH ROW
 --  WHEN (NEW.SpotName IS DISTINCT FROM OLD.SpotName OR
---        NEW.SpotUuid IS DISTINCT FROM OLD.SpotUuid OR
 --        NEW.Price IS DISTINCT FROM OLD.Price OR
 --        NEW.IsActive IS DISTINCT FROM OLD.IsActive)
 --  EXECUTE FUNCTION update_last_modified();

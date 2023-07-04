@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../database");
+const db = require("../../utils/database");
 
 // ### READER ###
 // A reader is used to read the card of a customer
