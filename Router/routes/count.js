@@ -23,9 +23,9 @@ router.get("/count/payments/all", (req, res) => {
 // Count today ticket payments made group by spot
 router.get("/count/payments/today/spots", (req, res) => {
   const today = new Date();
-  const dayQuery = "EXTRACT(DAY FROM DepositTimestamp)";
-  const monthQuery = "EXTRACT(MONTH FROM DepositTimestamp)";
-  const yearQuery = "EXTRACT(YEAR FROM DepositTimestamp)";
+  const dayQuery = "EXTRACT(DAY FROM PaymentTimestamp)";
+  const monthQuery = "EXTRACT(MONTH FROM PaymentTimestamp)";
+  const yearQuery = "EXTRACT(YEAR FROM PaymentTimestamp)";
   db.query(
     `SELECT s.SpotId, s.SpotName, s.Price, CAST(COUNT(p.SpotId) AS INTEGER) FROM spots s LEFT JOIN payments p ON s.SpotId = p.SpotId WHERE ${dayQuery} = $1 AND ${monthQuery} = $2 AND ${yearQuery} = $3 GROUP BY s.SpotId ORDER BY s.SpotId ASC`,
     [today.getDate(), today.getMonth() + 1, today.getFullYear()],
