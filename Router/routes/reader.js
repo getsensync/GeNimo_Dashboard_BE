@@ -5,22 +5,23 @@ const db = require("../../utils/database");
 // ### READER ###
 // A reader is used to read the card of a customer
 
-// Check Customer Validity : Return All Customer Data of A Certain Customer
-router.get("/reader/customers/validate/:id", (req, res) => {
-  const id = req.params.id;
-  db.query(
-    "SELECT * FROM customers WHERE CustomerId = $1",
-    [id],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("[API] customer validated successfully");
-        res.status(200).send(result.rows);
-      }
-    }
-  );
-});
+//    -->>    USE   "/management/customers/certain/:id"   INSTEAD   <<--    
+// // Check Customer Validity : Return All Customer Data of A Certain Customer
+// router.get("/reader/customers/validate/:id", (req, res) => {
+//   const id = req.params.id;
+//   db.query(
+//     "SELECT * FROM customers WHERE CustomerId = $1",
+//     [id],
+//     (err, result) => {
+//       if (err) {
+//         console.log(err);
+//       } else {
+//         console.log("[API] customer validated successfully");
+//         res.status(200).send(result.rows);
+//       }
+//     }
+//   );
+// });
 
 // Check Customer Active Status : Return IsActive of A Certain Customer
 router.get("/reader/customers/active/:id", (req, res) => {
