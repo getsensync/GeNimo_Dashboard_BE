@@ -4,6 +4,22 @@ const db = require("../../utils/database");
 
 // ### DATA COUNT ###
 
+// ### C-BALANCE ###
+// Count all customers balance also total customers
+router.get("/count/balance/all", (req, res) => {
+  db.query(
+    "SELECT CAST(COUNT(CustomerId) AS INTEGER) AS count, CAST(SUM(Balance) AS INTEGER) AS amount FROM customers",
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("[API] counted all customers balance successfully");
+        res.status(200).send(result.rows[0]);
+      }
+    }
+  );
+});
+
 // ### C-PAYMENTS ###
 // Count all ticket payments made group by spot
 router.get("/count/payments/all", (req, res) => {
