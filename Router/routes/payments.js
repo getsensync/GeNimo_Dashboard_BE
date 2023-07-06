@@ -85,7 +85,18 @@ router.post("/payments/add", (req, res) => {
               } while (!lastPaymentDeleted);
             } else {
               console.log("[API] payment added successfully");
-              res.status(200).send("payment added successfully");
+              db.query(
+                "SELECT Balance FROM customers WHERE CustomerId = $1",
+                [customer_id],
+                (err, result) => {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    console.log("     and writing new balance to the card");
+                    res.status(200).send(result.rows);
+                  }
+                }
+              );
             }
           }
         );
