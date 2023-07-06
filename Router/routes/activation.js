@@ -40,38 +40,4 @@ router.patch("/activation/spot/:id", (req, res) => {
   );
 });
 
-// Check active status of a customer, by ID
-router.get("/activation/customer/:id", (req, res) => {
-  const id = req.params.id;
-  db.query(
-    "SELECT IsActive FROM customers WHERE CustomerId = $1",
-    [id],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("[API] customer activation checked successfully");
-        res.status(200).send(result.rows);
-      }
-    }
-  );
-});
-
-// Check active status of a customer, by UUID
-router.get("/activation/customer/uuid/:uuid", (req, res) => {
-  const uuid = req.params.uuid;
-  db.query(
-    "SELECT IsActive FROM customers WHERE CustomerUuid = $1",
-    [uuid],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("[API] customer activation checked successfully");
-        res.status(200).send(result.rows);
-      }
-    }
-  );
-});
-
 module.exports = router;
