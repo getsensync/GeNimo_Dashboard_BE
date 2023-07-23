@@ -16,6 +16,9 @@ const counts = require("./routes/count");
 // ### READER ###
 const reader = require("./routes/reader");
 
+// ### CREDENTIALS ###
+const credentials = require("./routes/credentials");
+
 function router(app) {
   app.use(process.env.API_URI_PATH, management);
   app.use(process.env.API_URI_PATH, activation);
@@ -23,6 +26,7 @@ function router(app) {
   app.use(process.env.API_URI_PATH, payments);
   app.use(process.env.API_URI_PATH, counts);
   app.use(process.env.API_URI_PATH, reader);
+  app.use(process.env.API_URI_PATH, credentials);
 }
 
 module.exports = router;
