@@ -40,7 +40,7 @@ npm install
 npm run dev
 
 -- Build Mode (Not needed, Using CI/CD instead)
-# Build Wep App
+# Build Web App
 npm build
 ```
 
@@ -63,8 +63,27 @@ command : db-migrate up init
 # 1. Check the 'Migrations' folder
 # 2. Find the latest sql file with format {timestamp}-{name}.js
 example : 20230725-insertData.js
-# 3. Run db-migrate for latest file
+# 3. Run db-migrate for the latest file
 command : db-migrate up {name}
+
+-- Customize PostgreSQL settings in Server
+## There are 2 files that should be modified
+# 1. database.json
+{
+   "dev": {
+      "driver": "pg",
+       "user": {your user},
+       "password": {your password},
+       "host": "localhost",
+       "database": "genimo_db"
+   }
+}
+# 2. .env (dotenv)
+DB_HOST = "localhost"
+DB_USER = {your user}
+DB_PASS = {your password}
+DB_NAME = "genimo_db"
+DB_PORT = 5432
 ```
 
 ## Directory structure code
