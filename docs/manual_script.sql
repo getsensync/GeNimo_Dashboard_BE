@@ -3,7 +3,7 @@
 --create table Customers (
 --	CustomerId SERIAL primary key,
 --	CustomerName VARCHAR(256) not null,
---	CustomerUuid VARCHAR(8) not null,
+--	CustomerUuid VARCHAR(8) not null UNIQUE,
 --	DateOfBirth Date,
 --	Balance integer not null default 0 check (Balance >= 0),
 --	EncryptionType Varchar(10) not null,
@@ -231,3 +231,22 @@
 --        NEW.Price IS DISTINCT FROM OLD.Price OR
 --        NEW.IsActive IS DISTINCT FROM OLD.IsActive)
 --  EXECUTE FUNCTION update_last_modified();
+--
+
+--CREATE TABLE credentials (
+--  id SERIAL PRIMARY KEY,
+--  username VARCHAR(255) UNIQUE NOT NULL,
+--  email VARCHAR(255) UNIQUE NOT NULL,
+--  password VARCHAR(255) NOT NULL,
+--  role VARCHAR(10) CHECK (role IN ('admin', 'operator')) NOT NULL,
+--  first_name VARCHAR(255),
+--  last_name VARCHAR(255),
+--  phone VARCHAR(15),
+--  last_login TIMESTAMP,
+--  created_at TIMESTAMP NOT NULL
+--);
+
+--INSERT INTO credentials (username, email, password, role, created_at)
+--VALUES
+--  ('ad', 'admin@example.com', 'ad', 'admin', NOW()),
+--  ('op', 'operator@example.com', 'op', 'operator', NOW());

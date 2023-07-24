@@ -5,7 +5,7 @@
 -- Dumped from database version 15.3
 -- Dumped by pg_dump version 15.3
 
--- Started on 2023-07-24 05:34:30
+-- Started on 2023-07-25 00:42:28
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -17,6 +17,25 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
+
+--
+-- TOC entry 4 (class 2615 OID 2200)
+-- Name: public; Type: SCHEMA; Schema: -; Owner: pg_database_owner
+--
+
+CREATE SCHEMA public;
+
+
+ALTER SCHEMA public OWNER TO pg_database_owner;
+
+--
+-- TOC entry 3388 (class 0 OID 0)
+-- Dependencies: 4
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: pg_database_owner
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
+
 
 --
 -- TOC entry 224 (class 1255 OID 16513)
@@ -78,7 +97,7 @@ CREATE SEQUENCE public.credentials_id_seq
 ALTER TABLE public.credentials_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3388 (class 0 OID 0)
+-- TOC entry 3389 (class 0 OID 0)
 -- Dependencies: 222
 -- Name: credentials_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -124,7 +143,7 @@ CREATE SEQUENCE public.customers_customerid_seq
 ALTER TABLE public.customers_customerid_seq OWNER TO postgres;
 
 --
--- TOC entry 3389 (class 0 OID 0)
+-- TOC entry 3390 (class 0 OID 0)
 -- Dependencies: 214
 -- Name: customers_customerid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -164,7 +183,7 @@ CREATE SEQUENCE public.deposits_depositid_seq
 ALTER TABLE public.deposits_depositid_seq OWNER TO postgres;
 
 --
--- TOC entry 3390 (class 0 OID 0)
+-- TOC entry 3391 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: deposits_depositid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -204,7 +223,7 @@ CREATE SEQUENCE public.payments_paymentid_seq
 ALTER TABLE public.payments_paymentid_seq OWNER TO postgres;
 
 --
--- TOC entry 3391 (class 0 OID 0)
+-- TOC entry 3392 (class 0 OID 0)
 -- Dependencies: 220
 -- Name: payments_paymentid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -246,7 +265,7 @@ CREATE SEQUENCE public.spots_spotid_seq
 ALTER TABLE public.spots_spotid_seq OWNER TO postgres;
 
 --
--- TOC entry 3392 (class 0 OID 0)
+-- TOC entry 3393 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: spots_spotid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -313,17 +332,17 @@ COPY public.credentials (id, username, email, password, role, first_name, last_n
 --
 
 COPY public.customers (customerid, customername, customeruuid, dateofbirth, balance, encryptiontype, createdat, lastmodified, isactive) FROM stdin;
+1	John Doe	12345678	2023-07-12	332	AES	2023-07-02 00:29:33.757675	2023-07-12 12:25:22.687428	t
+2	Jane Smith	87654321	1985-05-10	210	DES	2023-07-02 00:29:33.757675	2023-07-06 08:01:06.129703	f
+3	David Johnson	98765432	1992-07-15	228	Twofish	2023-07-02 00:29:33.757675	2023-07-06 03:13:18.756987	f
+4	Sarah Williams	54321678	1988-03-22	291	RSA	2023-07-02 00:29:33.757675	2023-07-04 21:22:24.194218	t
+5	Michael Brown	87651234	1995-11-30	247	AES	2023-07-02 00:29:33.757675	2023-07-06 02:50:33.710575	t
 6	Emily Davis	65432187	1993-09-05	135	DES	2023-07-02 00:29:33.757675	2023-07-02 00:29:33.757675	t
 7	Christopher Wilson	34567891	1991-04-18	306	Twofish	2023-07-02 00:29:33.757675	2023-07-02 00:29:33.757675	f
 8	Olivia Miller	78912345	1987-08-12	251	RSA	2023-07-02 00:29:33.757675	2023-07-02 00:29:33.757675	t
 9	Daniel Anderson	23456789	1994-06-25	204	AES	2023-07-02 00:29:33.757675	2023-07-02 00:29:33.757675	t
 10	Sophia Thompson	56789123	1989-02-08	191	DES	2023-07-02 00:29:33.757675	2023-07-02 00:29:33.757675	f
-4	Sarah Williams	54321678	1988-03-22	291	RSA	2023-07-02 00:29:33.757675	2023-07-04 21:22:24.194218	t
-5	Michael Brown	87651234	1995-11-30	247	AES	2023-07-02 00:29:33.757675	2023-07-06 02:50:33.710575	t
-3	David Johnson	98765432	1992-07-15	228	Twofish	2023-07-02 00:29:33.757675	2023-07-06 03:13:18.756987	f
-2	Jane Smith	87654321	1985-05-10	210	DES	2023-07-02 00:29:33.757675	2023-07-06 08:01:06.129703	f
-13	Leo	32345678	2005-05-01	0	RSA	2023-07-06 08:10:43.496114	2023-07-06 08:10:43.496114	f
-1	John Doe	12345678	2023-07-12	332	AES	2023-07-02 00:29:33.757675	2023-07-12 12:25:22.687428	t
+11	Leo	32345678	2005-05-01	0	RSA	2023-07-06 08:10:43.496114	2023-07-06 08:10:43.496114	f
 \.
 
 
@@ -383,7 +402,18 @@ COPY public.deposits (depositid, customerid, amount, deposittimestamp) FROM stdi
 --
 
 COPY public.payments (paymentid, customerid, spotid, paymenttimestamp) FROM stdin;
+1	1	1	2023-01-02 01:30:24.8
+2	1	2	2023-02-02 01:30:24.8
+3	1	3	2023-03-02 01:30:24.8
+4	1	4	2023-04-02 01:30:24.8
+5	1	5	2023-05-02 01:30:24.8
+6	2	1	2023-06-02 01:30:24.8
 7	2	4	2023-07-02 01:30:24.800493
+8	2	5	2023-08-02 01:30:24.8
+9	2	8	2023-09-02 01:30:24.8
+10	2	10	2023-10-02 01:30:24.8
+11	3	2	2023-11-02 01:30:24.8
+12	3	3	2023-12-02 01:30:24.8
 13	3	4	2023-07-02 01:30:24.800493
 14	3	7	2023-07-02 01:30:24.800493
 15	3	8	2023-07-02 01:30:24.800493
@@ -427,17 +457,6 @@ COPY public.payments (paymentid, customerid, spotid, paymenttimestamp) FROM stdi
 53	10	8	2023-07-02 01:30:24.800493
 54	10	9	2023-07-02 01:30:24.800493
 55	10	10	2023-07-02 01:30:24.800493
-1	1	1	2023-01-02 01:30:24.8
-2	1	2	2023-02-02 01:30:24.8
-3	1	3	2023-03-02 01:30:24.8
-4	1	4	2023-04-02 01:30:24.8
-5	1	5	2023-05-02 01:30:24.8
-6	2	1	2023-06-02 01:30:24.8
-8	2	5	2023-08-02 01:30:24.8
-9	2	8	2023-09-02 01:30:24.8
-10	2	10	2023-10-02 01:30:24.8
-11	3	2	2023-11-02 01:30:24.8
-12	3	3	2023-12-02 01:30:24.8
 59	1	1	2023-07-03 13:49:53.963013
 60	1	1	2023-07-03 13:51:21.100641
 61	4	11	2023-07-04 21:22:12.432757
@@ -475,20 +494,20 @@ COPY public.spots (spotid, spotname, price, isactive, createdat, lastmodified) F
 1	Ferris Wheel	10	t	2023-07-02 00:35:56.147185	2023-07-02 00:35:56.147185
 2	Roller Coaster	20	t	2023-07-02 00:35:56.147185	2023-07-02 00:35:56.147185
 3	Water Slide	15	f	2023-07-02 00:35:56.147185	2023-07-02 00:35:56.147185
+4	Carousel	8	f	2023-07-02 00:35:56.147185	2023-07-03 01:16:07.620439
+5	Haunted House	12	f	2023-07-02 00:35:56.147185	2023-07-03 01:16:23.796785
 6	Bumper Cars	10	t	2023-07-02 00:35:56.147185	2023-07-02 00:35:56.147185
 7	Merry-Go-Round	8	f	2023-07-02 00:35:56.147185	2023-07-02 00:35:56.147185
 8	Giant Swing	15	t	2023-07-02 00:35:56.147185	2023-07-02 00:35:56.147185
 9	Teacups	6	t	2023-07-02 00:35:56.147185	2023-07-02 00:35:56.147185
 10	Carnival Games	5	f	2023-07-02 00:35:56.147185	2023-07-02 00:35:56.147185
-4	Carousel	8	f	2023-07-02 00:35:56.147185	2023-07-03 01:16:07.620439
-5	Haunted House	12	f	2023-07-02 00:35:56.147185	2023-07-03 01:16:23.796785
 11	Halilintar	50	f	2023-07-03 01:18:54.699659	2023-07-03 01:25:39.509082
 12	mancing naga	100	f	2023-07-06 08:10:52.952869	2023-07-06 08:10:52.952869
 \.
 
 
 --
--- TOC entry 3393 (class 0 OID 0)
+-- TOC entry 3394 (class 0 OID 0)
 -- Dependencies: 222
 -- Name: credentials_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -497,7 +516,7 @@ SELECT pg_catalog.setval('public.credentials_id_seq', 2, true);
 
 
 --
--- TOC entry 3394 (class 0 OID 0)
+-- TOC entry 3395 (class 0 OID 0)
 -- Dependencies: 214
 -- Name: customers_customerid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -506,7 +525,7 @@ SELECT pg_catalog.setval('public.customers_customerid_seq', 14, true);
 
 
 --
--- TOC entry 3395 (class 0 OID 0)
+-- TOC entry 3396 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: deposits_depositid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -515,7 +534,7 @@ SELECT pg_catalog.setval('public.deposits_depositid_seq', 45, true);
 
 
 --
--- TOC entry 3396 (class 0 OID 0)
+-- TOC entry 3397 (class 0 OID 0)
 -- Dependencies: 220
 -- Name: payments_paymentid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -524,7 +543,7 @@ SELECT pg_catalog.setval('public.payments_paymentid_seq', 82, true);
 
 
 --
--- TOC entry 3397 (class 0 OID 0)
+-- TOC entry 3398 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: spots_spotid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -647,7 +666,7 @@ ALTER TABLE ONLY public.payments
     ADD CONSTRAINT payments_spotid_fkey FOREIGN KEY (spotid) REFERENCES public.spots(spotid);
 
 
--- Completed on 2023-07-24 05:34:30
+-- Completed on 2023-07-25 00:42:28
 
 --
 -- PostgreSQL database dump complete
