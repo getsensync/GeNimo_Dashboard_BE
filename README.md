@@ -1,5 +1,5 @@
 # Genimo Server (BE)
-A  web server that provide APIs for GeNimo project, built with Express JS and PostgreSQL. This project is used to utilize business process in Nimo Highland.
+A  web server that provides APIs for the GeNimo project, built with Express JS and PostgreSQL. This project is used to utilize business processes in Nimo Highland.
 
 ### Stack
 - Express JS
@@ -22,7 +22,7 @@ or
 
 ## Installation
 
-Note : You should install Node.Js and PostgreSQL before run this server
+Note : You should install Node.Js and PostgreSQL before running this server
 ```bash
 # Clone this project
 git clone https://github.com/getsensync/GeNimo_Dashboard_BE
@@ -30,10 +30,10 @@ git clone https://github.com/getsensync/GeNimo_Dashboard_BE
 -- Dependencies Installation
 # Cd to 'GeNimo_Dashboard_BE' Folder
 cd "GeNimo_Dashboard_BE"
-# Install Depencies Using Node
+# Install Dependencies Using Node
 npm install
 
-### -> { GO TO Database Setup, before continue } <- ###
+### -> { GO TO Database Setup, before continuing} <- ###
 
 -- Development Mode
 # Start Web App Development Mode
@@ -49,7 +49,7 @@ npm build
 Note : You should install Node.Js and PostgreSQL. Use PgAdmin/ DBeaver for Database GUI (Best Practice)
 ```bash
 -- Database Setup
-# 1. Make New Connection of PostgreSQL
+# 1. Make a New Connection of PostgreSQL
 # 2. Set User = postgres
 # 3. Set Password = root
 # 4. Set Port = 5432
@@ -59,14 +59,15 @@ Note : You should install Node.Js and PostgreSQL. Use PgAdmin/ DBeaver for Datab
 command : db-migrate up init
 
 -- Database Migration
-# Used when there is any change in database
-# 1. Check 'Migrations' folder
-# 2. Find latest sql file with format {timestamp}-{name}.sql
+# Used when there is any change in the database
+# 1. Check the 'Migrations' folder
+# 2. Find the latest sql file with format {timestamp}-{name}.js
+example : 20230725-insertData.js
 # 3. Run db-migrate for latest file
 command : db-migrate up {name}
 ```
 
-## Directory sturcture code
+## Directory structure code
 
 ```
 GeNimo_Dashboard_BE
@@ -81,7 +82,8 @@ GeNimo_Dashboard_BE
 │     ├─ 20230724182637-init-down.sql
 │     ├─ 20230724182637-init-up.sql
 │     ├─ 20230724203611-insertData-down.sql
-│     └─ 20230724203611-insertData-up.sql
+│     ├─ 20230724203611-insertData-up.sql
+│     └─ ...
 ├─ package-lock.json
 ├─ package.json
 ├─ server.js
