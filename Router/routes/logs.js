@@ -5,7 +5,8 @@ const db = require("../../utils/database");
 // ### LOGS ###
 
 // Get Customer-log, Deposit-log, Payment-log data limit 200 total
-router.get("/logs/all", (req, res) => {
+router.get("/logs/all/:limit?", (req, res) => {
+  const log_limit = req.params.limit || 200;
   let deposits = [];
   let payments = [];
   let customers = [];
@@ -37,7 +38,6 @@ router.get("/logs/all", (req, res) => {
       if (err) {
         console.log(err);
       } else {
-        console.log("[API] get all customers successfully");
         customers = result[0].rows;
         deposits = result[1].rows;
         payments = result[2].rows;
@@ -58,6 +58,8 @@ router.get("/logs/all", (req, res) => {
         logs.sort((a, b) => {
           return b.timestamp - a.timestamp;
         });
+        logs.splice(log_limit);
+        console.log(`[API] get ${logs.length} logs successfully`);
         res.status(200).send(logs);
       }
     }
