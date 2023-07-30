@@ -16,9 +16,9 @@ Provides APIs for :
 7.  Account Management 
 
 ## Deployed Server
--  Using GCDP 
+-  Local PC Server at Nimo Highland (IP Address: 192.168.0.2:5000)  
 or
--  Local PC Server at Nimo Highland
+-  Using GCDP (Soon)
 
 ## Installation
 
@@ -97,14 +97,14 @@ GeNimo_Dashboard_BE
 ├─ migrations
 │  ├─ 20230724182637-init.js
 │  ├─ 20230724203611-insertData.js
+│  ├─ 20230729231708-updateCredentials.js
 │  └─ sqls
-│     ├─ 20230724182637-init-down.sql
-│     ├─ 20230724182637-init-up.sql
-│     ├─ 20230724203611-insertData-down.sql
-│     ├─ 20230724203611-insertData-up.sql
-│     └─ ...
+│     ├─ ...
+│     ├─ 20230729231708-updateCredentials-down.sql
+│     └─ 20230729231708-updateCredentials-up.sql
 ├─ package-lock.json
 ├─ package.json
+├─ README.md
 ├─ server.js
 └─ utils
    └─ database.js
