@@ -111,9 +111,9 @@ router.post('/payments/add/customeruuid/:customeruuid', (req, res) => {
   // insert data to payments table and update balance in customers table,
   // balance update is subtracting old balance with price of the spot
   db.query(
-      // Get customer ID from UUID, as deposits table will only store customer
+      // Get customer ID and balance from UUID, as deposits table will only store customer
       // ID
-      'SELECT customerid FROM customers WHERE customeruuid = $1',
+      'SELECT customerid, balance FROM customers WHERE customeruuid = $1',
       [customer_uuid], (err, result) => {
         if (err) {
           console.log(err);
@@ -122,47 +122,66 @@ router.post('/payments/add/customeruuid/:customeruuid', (req, res) => {
 
           // Store customer ID, to be used for further querying
           const customer_id = result.rows[0].customerid;
+          const balance = result.rows[0].balance;
 
+          // Before Insert a payment, check if the customer has enough balance which is
+          // more than the price of the spot
           db.query(
-              'INSERT INTO payments (CustomerId, SpotId) VALUES ($1, $2)',
-              [customer_id, spot_id], (err, result) => {
+              'SELECT price FROM spots WHERE spotid = $1', [spot_id],
+              (err, result) => {
                 if (err) {
                   console.log(err);
                 } else {
-                  // update balance in customers table
-                  db.query(
-                      'UPDATE customers SET Balance = Balance - (SELECT Price FROM spots WHERE SpotId = $1) WHERE CustomerId = $2',
-                      [spot_id, customer_id], (err, result) => {
-                        if (err) {
-                          console.log(err);
-                          // if error occurs, delete last made payment
-                          let lastPaymentDeleted = false;
-                          do {
+                  const price = result.rows[0].price;
+                  console.log(`[API] spot price is ${price}, continuing...`);
+
+                  if (balance < price) {
+                    res.status(417).send(
+                        '     Customer balance is not enough to pay for this spot');
+                  } else {
+                    db.query(
+                        'INSERT INTO payments (CustomerId, SpotId) VALUES ($1, $2)',
+                        [customer_id, spot_id], (err, result) => {
+                          if (err) {
+                            console.log(err);
+                          } else {
+                            // update balance in customers table
                             db.query(
-                                'DELETE FROM payments WHERE PaymentId = (SELECT MAX(PaymentId) FROM payments)',
-                                (err, result) => {
+                                'UPDATE customers SET Balance = Balance - (SELECT Price FROM spots WHERE SpotId = $1) WHERE CustomerId = $2',
+                                [spot_id, customer_id], (err, result) => {
                                   if (err) {
                                     console.log(err);
+                                    // if error occurs, delete last made payment
+                                    let lastPaymentDeleted = false;
+                                    do {
+                                      db.query(
+                                          'DELETE FROM payments WHERE PaymentId = (SELECT MAX(PaymentId) FROM payments)',
+                                          (err, result) => {
+                                            if (err) {
+                                              console.log(err);
+                                            } else {
+                                              lastPaymentDeleted = true;
+                                            }
+                                          });
+                                    } while (!lastPaymentDeleted);
                                   } else {
-                                    lastPaymentDeleted = true;
+                                    console.log('[API] payment added successfully');
+                                    db.query(
+                                        'SELECT Balance FROM customers WHERE CustomerId = $1',
+                                        [customer_id], (err, result) => {
+                                          if (err) {
+                                            console.log(err);
+                                          } else {
+                                            console.log(
+                                                '     and writing new balance to the card');
+                                            res.status(200).send(result.rows);
+                                          }
+                                        });
                                   }
                                 });
-                          } while (!lastPaymentDeleted);
-                        } else {
-                          console.log('[API] payment added successfully');
-                          db.query(
-                              'SELECT Balance FROM customers WHERE CustomerId = $1',
-                              [customer_id], (err, result) => {
-                                if (err) {
-                                  console.log(err);
-                                } else {
-                                  console.log(
-                                      '     and writing new balance to the card');
-                                  res.status(200).send(result.rows);
-                                }
-                              });
-                        }
-                      });
+                          }
+                        });
+                  }
                 }
               });
         }
