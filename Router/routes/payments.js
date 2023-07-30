@@ -136,7 +136,7 @@ router.post('/payments/add/customeruuid/:customeruuid', (req, res) => {
                   console.log(`[API] spot price is ${price}, continuing...`);
 
                   if (balance < price) {
-                    res.status(417).send(
+                    res.status(403).send(
                         '     Customer balance is not enough to pay for this spot');
                   } else {
                     db.query(

@@ -31,6 +31,63 @@ router.get("/credentials/certain/:term", (req, res) => {
   );
 });
 
+// Patch to change first_name, last_name, and phone from credentials table by username
+router.patch("/credentials/changeProfile", (req, res) => {
+  const { username } = req.body;
+  const { first_name } = req.body;
+  const { last_name } = req.body;
+  const { phone } = req.body;
+  db.query(
+    "UPDATE credentials SET first_name = $1, last_name = $2, phone = $3 WHERE username = $4",
+    [first_name, last_name, phone, username],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("[API] profile credentials changed successfully");
+        res.status(200).send("success");
+      }
+    }
+  );
+});
+
+// Patch to change password from credentials table by username
+router.patch("/credentials/changePassword", (req, res) => {
+  const { username } = req.body;
+  const { old_password } = req.body;
+  const { new_password } = req.body;
+  // check if old password is correct
+  db.query(
+    "SELECT password FROM credentials WHERE username = $1",
+    [username],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        if (result.rows[0].password === old_password) {
+          // if old password is correct, change password
+          db.query(
+            "UPDATE credentials SET password = $1 WHERE username = $2",
+            [new_password, username],
+            (err, result) => {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log("[API] password credentials changed successfully");
+                res.status(200).send("Password updated successfully");
+              }
+            }
+          );
+        } else {
+          console.log("[API] Old password is incorrect. Failed to change password");
+          res.status(422).send("Old password is incorrect. Failed to change password");
+        }
+      }
+    }
+  );
+});
+
+
 // Patch last_login column from credentials table by username
 router.patch("/credentials/last_login/:username", (req, res) => {
   const { username } = req.params;
@@ -42,7 +99,7 @@ router.patch("/credentials/last_login/:username", (req, res) => {
         console.log(err);
       } else {
         console.log("[API] last_login credentials data updated successfully");
-        res.status(200).send("last_login att updated successfully");
+        res.status(200).send("last_login updated successfully");
       }
     }
   );
