@@ -54,37 +54,19 @@ router.patch("/credentials/changeProfile", (req, res) => {
 // Patch to change password from credentials table by username
 router.patch("/credentials/changePassword", (req, res) => {
   const { username } = req.body;
-  const { old_password } = req.body;
   const { new_password } = req.body;
-  // check if old password is correct
-  db.query(
-    "SELECT password FROM credentials WHERE username = $1",
-    [username],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        if (result.rows[0].password === old_password) {
-          // if old password is correct, change password
-          db.query(
-            "UPDATE credentials SET password = $1 WHERE username = $2",
-            [new_password, username],
-            (err, result) => {
-              if (err) {
-                console.log(err);
-              } else {
-                console.log("[API] password credentials changed successfully");
-                res.status(200).send("Password updated successfully");
-              }
-            }
-          );
+    db.query(
+      "UPDATE credentials SET password = $1 WHERE username = $2",
+      [new_password, username],
+      (err, result) => {
+        if (err) {
+          console.log(err);
         } else {
-          console.log("[API] Old password is incorrect. Failed to change password");
-          res.status(422).send("Old password is incorrect. Failed to change password");
+          console.log("[API] password credentials changed successfully");
+          res.status(200).send("Password updated successfully");
         }
       }
-    }
-  );
+    );
 });
 
 
