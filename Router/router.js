@@ -22,6 +22,9 @@ const credentials = require("./routes/credentials");
 // ### LOGS ###
 const logs = require("./routes/logs");
 
+// ### REQUESTS ###
+const requests = require("./routes/requests");
+
 function router(app) {
   app.use(process.env.API_URI_PATH, management);
   app.use(process.env.API_URI_PATH, activation);
@@ -31,6 +34,7 @@ function router(app) {
   app.use(process.env.API_URI_PATH, reader);
   app.use(process.env.API_URI_PATH, credentials);
   app.use(process.env.API_URI_PATH, logs);
+  app.use(process.env.API_URI_PATH, requests);
 }
 
 module.exports = router;
