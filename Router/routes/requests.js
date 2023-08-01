@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../../utils/database");
 
 // get all requests
-router.get("/requests/all", async (req, res) => {
+router.get("/requests/all", (req, res) => {
   db.query(
     "SELECT * FROM requests r LEFT JOIN credentials c on r.userId = c.id ORDER BY RequestId ASC",
     (err, result) => {
@@ -18,7 +18,7 @@ router.get("/requests/all", async (req, res) => {
 });
 
 // get requests with status = false
-router.get("/requests/false", async (req, res) => {
+router.get("/requests/false", (req, res) => {
   db.query(
     "SELECT * FROM requests r LEFT JOIN credentials c on r.userId = c.id WHERE r.status = false ORDER BY RequestId ASC",
     (err, result) => {
@@ -34,7 +34,7 @@ router.get("/requests/false", async (req, res) => {
 
 // approve request (status = true), approve by adminId with approveBy = adminId
 // also add approved_timestamp = current time
-router.patch("/requests/approve", async (req, res) => {
+router.patch("/requests/approve", (req, res) => {
   const { userId, adminId } = req.body;
   // set role = admin in credentials table where id = userId
   db.query(
@@ -62,8 +62,25 @@ router.patch("/requests/approve", async (req, res) => {
   );
 });
 
+// deny request i.e. delete request from requests table
+router.delete("/requests/reject/:userId", (req, res) => {
+  const { userId } = req.params;
+  db.query(
+    "DELETE FROM requests WHERE userId = $1",
+    [userId],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("[API] request denied successfully");
+        res.status(200).send(result.rows);
+      }
+    }
+  );
+});
+
 // add/update request (timestamp = current time)
-router.post("/requests/update", async (req, res) => {
+router.post("/requests/update", (req, res) => {
   const { userId } = req.body;
   // first check if there is a request with userId
   // if there is, update timestamp where status = false, else add request
